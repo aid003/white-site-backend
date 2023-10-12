@@ -39,13 +39,13 @@ const HTML_TEMPLATE = (text) => {
         <div class="container">
           <div class="email">
             <div class="email-header">
-              <h1>EMAIL HEADER</h1>
+              <h1>Обратная связь</h1>
             </div>
             <div class="email-body">
               <p>${text}</p>
             </div>
             <div class="email-footer">
-              <p>EMAIL FOOTER</p>
+              <p>Удачи</p>
             </div>
           </div>
         </div>

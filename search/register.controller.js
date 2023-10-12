@@ -49,7 +49,7 @@ export const registerSearch = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error(`Error in create entry: ${error}`);
       }
-      firstMessage();
+      firstMessage(email);
       serviceMessage(JSON.stringify(req.body));
     } catch (error) {
       res.status(400);
