@@ -1,6 +1,7 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import morgan from "morgan";
+import https from "https"
 import cors from "cors";
 import dotenv from "dotenv";
 import {
@@ -18,6 +19,11 @@ async function main() {
   app.use(express.json());
   app.use(morgan("tiny"));
 
+  const options = {
+    cert: fs.readFileSync("/etc/letsencrypt/live/poisk-it-easy.ru/fullchain.pem"),
+    key: fs.readFileSync("/etc/letsencrypt/live/poisk-it-easy.ru/privkey.pem"),
+  };
+
   app.use("/api/create-search/", registerSearch);
   app.use("/api/check-current-searches/", checkCurrentSearhes);
   app.use("/api/get-all-email/", getAllEmail)
@@ -30,6 +36,8 @@ async function main() {
       `🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
     )
   );
+
+  https.createServer(options, app).listen(8443);
 }
 
 main()
