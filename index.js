@@ -4,6 +4,7 @@ import morgan from "morgan";
 import https from "https"
 import cors from "cors";
 import dotenv from "dotenv";
+import fs from "fs"
 import {
   checkCurrentSearhes,
   getAllEmail,
