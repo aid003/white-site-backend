@@ -1,6 +1,5 @@
 import { prisma } from "../prisma/prisma.js";
 import asyncHandler from "express-async-handler";
-import { firstMessage, serviceMessage } from "../sender/sender.js";
 
 export const registerSearch = asyncHandler(async (req, res) => {
   const { email, searchData } = req.body;
@@ -17,6 +16,19 @@ export const registerSearch = asyncHandler(async (req, res) => {
     callSign,
     specialSigns,
   } = JSON.parse(searchData);
+
+  // const {
+  //   name,
+  //   surname,
+  //   fatherName,
+  //   age,
+  //   soldatId,
+  //   contractDate,
+  //   locateCall,
+  //   stateNumber,
+  //   callSign,
+  //   specialSigns,
+  // } = searchData;
 
   if (!email || !searchData || !req.body) {
     res.status(401);
@@ -39,6 +51,7 @@ export const registerSearch = asyncHandler(async (req, res) => {
             stateNumber: stateNumber,
             callSign: callSign,
             specialSigns: specialSigns,
+            status: "not pay",
           },
         },
       },
@@ -49,15 +62,14 @@ export const registerSearch = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error(`Error in create entry: ${error}`);
       }
-      firstMessage(email);
-      serviceMessage(JSON.stringify(req.body));
+
     } catch (error) {
       res.status(400);
       throw new Error(`Error in send mail: ${error}`);
     }
 
     res.status(200);
-    res.json({ message: "success" });
+    res.json({ message: "success", id: register.id });
   } catch (error) {
     res.status(400);
     throw new Error(`Error: ${error}`);
@@ -104,4 +116,16 @@ export const getAllEmail = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error(`Error in request: ${error}`);
   }
+});
+
+export const getCurrentId = asyncHandler(async (req, res) => {
+  const id = await prisma.searchObject.findMany({
+    orderBy: {
+      id: "desc",
+    },
+    take: 1,
+  });
+
+  res.status(200);
+  res.json({ id: id[0].id + 1 });
 });

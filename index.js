@@ -8,8 +8,10 @@ import fs from "fs"
 import {
   checkCurrentSearhes,
   getAllEmail,
+  getCurrentId,
   registerSearch,
 } from "./search/register.controller.js";
+import { successPay } from "./pay/pay.controller.js";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -28,6 +30,8 @@ async function main() {
   app.use("/api/create-search/", registerSearch);
   app.use("/api/check-current-searches/", checkCurrentSearhes);
   app.use("/api/get-all-email/", getAllEmail)
+  app.use("/api/success-payment/", successPay)
+  app.use("/api/get-current-id", getCurrentId)
 
   const PORT = 5005;
 

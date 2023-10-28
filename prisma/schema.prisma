@@ -32,6 +32,7 @@ model SearchObject {
   callSign String
   specialSigns String
   number Int
+  status String
   author User @relation(fields: [number], references: [id])
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt

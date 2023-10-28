@@ -20,6 +20,7 @@ CREATE TABLE "SearchObject" (
     "callSign" TEXT NOT NULL,
     "specialSigns" TEXT NOT NULL,
     "number" INTEGER NOT NULL,
+    "status" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
     CONSTRAINT "SearchObject_number_fkey" FOREIGN KEY ("number") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
