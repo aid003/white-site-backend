@@ -20,6 +20,7 @@ CREATE TABLE "SearchObject" (
     "callSign" TEXT NOT NULL,
     "specialSigns" TEXT NOT NULL,
     "number" INTEGER NOT NULL,
+    "orderId" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,

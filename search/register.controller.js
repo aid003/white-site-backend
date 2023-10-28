@@ -36,6 +36,8 @@ export const registerSearch = asyncHandler(async (req, res) => {
   }
 
   try {
+    const orderId = Math.random().toString(36).slice(3);
+
     const register = await prisma.user.create({
       data: {
         email: email,
@@ -51,9 +53,13 @@ export const registerSearch = asyncHandler(async (req, res) => {
             stateNumber: stateNumber,
             callSign: callSign,
             specialSigns: specialSigns,
-            status: "not pay",
+            status: "with out pay",
+            orderId: orderId,
           },
         },
+      },
+      include: {
+        searchObjects: true,
       },
     });
 
@@ -62,14 +68,13 @@ export const registerSearch = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error(`Error in create entry: ${error}`);
       }
-
     } catch (error) {
       res.status(400);
       throw new Error(`Error in send mail: ${error}`);
     }
 
     res.status(200);
-    res.json({ message: "success", id: register.id });
+    res.json({ message: "success", orderId: register.searchObjects[0].orderId });
   } catch (error) {
     res.status(400);
     throw new Error(`Error: ${error}`);
@@ -118,14 +123,4 @@ export const getAllEmail = asyncHandler(async (req, res) => {
   }
 });
 
-export const getCurrentId = asyncHandler(async (req, res) => {
-  const id = await prisma.searchObject.findMany({
-    orderBy: {
-      id: "desc",
-    },
-    take: 1,
-  });
 
-  res.status(200);
-  res.json({ id: id[0].id + 1 });
-});
