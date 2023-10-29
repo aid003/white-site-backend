@@ -1,12 +1,12 @@
 import HTML_TEMPLATE from "../mailer/mail-template.js";
 import { sendMail } from "../mailer/mailer.js";
 
-export const firstMessage = (to = "white.project999@gmail.com") => {
-  const message = "Hi there, you were emailed me through nodemailer";
+export const firstMessage = (to = `${process.env.EMAIL}`) => {
+  const message = `${process.env.MESSAGE_FOR_USER}`;
   const options = {
-    from: "white.project999@gmail.com",
+    from: `${process.env.EMAIL}`,
     to: to,
-    subject: "Send email in Node.JS with Nodemailer using Gmail account",
+    subject: "Ваш заказ на поиск принят в работу.",
     text: message,
     html: HTML_TEMPLATE(message),
   };
@@ -22,11 +22,10 @@ export const firstMessage = (to = "white.project999@gmail.com") => {
 
 export const serviceMessage = (data) => {
   const options = {
-    from: "white.project999@gmail.com",
-    to: "white.project999@gmail.com",
-    subject: "Success request",
-    text: data,
-    html: HTML_TEMPLATE(data),
+    from: `${process.env.EMAIL}`,
+    to: `${process.env.EMAIL}`,
+    subject: "Success",
+    text: data
   };
 
   try {

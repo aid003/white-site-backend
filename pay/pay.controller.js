@@ -5,7 +5,9 @@ import { firstMessage, serviceMessage } from "../sender/sender.js";
 export const successPay = asyncHandler(async (req, res) => {
   const { order_id, email } = req.body;
 
-  if (!order_id || !email) throw new Error("no data");
+  if (!order_id || !email) {
+    throw new Error("no data");
+  }
 
   try {
     const checkData = await prisma.user.findFirst({
@@ -34,12 +36,7 @@ export const successPay = asyncHandler(async (req, res) => {
 
       if (updateStatus) {
         firstMessage(email);
-        serviceMessage(JSON.stringify(req.body));
-
-        res.status(200);
-        res.json(updateStatus);
-
-        res.json(checkData);
+        serviceMessage();
       }
     }
   } catch (error) {
