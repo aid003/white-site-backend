@@ -1,10 +1,10 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import morgan from "morgan";
-import https from "https"
+import https from "https";
 import cors from "cors";
 import dotenv from "dotenv";
-import fs from "fs"
+import fs from "fs";
 import {
   checkCurrentSearhes,
   getAllEmail,
@@ -22,14 +22,18 @@ async function main() {
   app.use(morgan("tiny"));
 
   const options = {
-    cert: fs.readFileSync("/etc/letsencrypt/live/poisk-it-easy.ru/fullchain.pem"),
-    key: fs.readFileSync("/etc/letsencrypt/live/poisk-it-easy.ru/privkey.pem"),
+    cert: fs.readFileSync(
+      "/etc/letsencrypt/live/bagilubixam059ye.ru/fullchain.pem"
+    ),
+    key: fs.readFileSync(
+      "/etc/letsencrypt/live/bagilubixam059ye.ru/privkey.pem"
+    ),
   };
 
   app.use("/api/create-search/", registerSearch);
   app.use("/api/check-current-searches/", checkCurrentSearhes);
-  app.use("/api/get-all-email/", getAllEmail)
-  app.use("/api/success-payment/", successPay)
+  app.use("/api/get-all-email/", getAllEmail);
+  app.use("/api/success-payment/", successPay);
 
   const PORT = 5005;
 
