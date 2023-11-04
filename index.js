@@ -19,7 +19,6 @@ dotenv.config();
 async function main() {
   app.use(cors({ origin: "*" }));
   app.use(express.urlencoded());
-  app.use(express.multipart());
   app.use(express.json());
   app.use(morgan("tiny"));
 
