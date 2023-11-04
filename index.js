@@ -4,6 +4,7 @@ import morgan from "morgan";
 import https from "https";
 import cors from "cors";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
 import fs from "fs";
 import {
   checkCurrentSearhes,
@@ -18,6 +19,12 @@ dotenv.config();
 
 async function main() {
   app.use(cors({ origin: "*" }));
+  app.use(bodyParser.json());
+  app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  );
   app.use(express.json());
   app.use(morgan("tiny"));
 
@@ -35,7 +42,6 @@ async function main() {
   app.use("/api/get-all-email/", getAllEmail);
   app.use("/api/success-payment/", successPay);
 
-
   // const PORT = 5005;
 
   // app.listen(
@@ -45,7 +51,9 @@ async function main() {
   //   )
   // );
 
-  https.createServer(options, app).listen(8443, console.log("https be started"));
+  https
+    .createServer(options, app)
+    .listen(8443, console.log("https be started"));
 }
 
 main()
