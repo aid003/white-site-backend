@@ -4,7 +4,6 @@ import morgan from "morgan";
 import https from "https";
 import cors from "cors";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import fs from "fs";
 import {
   checkCurrentSearhes,
@@ -19,12 +18,8 @@ dotenv.config();
 
 async function main() {
   app.use(cors({ origin: "*" }));
-  app.use(bodyParser.json());
-  app.use(
-    bodyParser.urlencoded({
-      extended: true,
-    })
-  );
+  app.use(express.urlencoded());
+  app.use(express.multipart());
   app.use(express.json());
   app.use(morgan("tiny"));
 
