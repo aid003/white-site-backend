@@ -37,9 +37,11 @@ export const successPay = asyncHandler(async (req, res) => {
       if (updateStatus) {
         firstMessage(email);
         serviceMessage();
+        res.status(200)
       }
     }
   } catch (error) {
+    res.status(400)
     throw new Error(error);
   }
 });
