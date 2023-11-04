@@ -10,32 +10,34 @@ export const successPay = asyncHandler(async (req, res) => {
   }
 
   try {
-    // const checkData = await prisma.user.findFirst({
-    //   where: {
-    //     email: email,
-    //     searchObjects: {
-    //       every: {
-    //         orderId: order_id,
-    //       },
-    //     },
-    //   },
-    //   include: {
-    //     searchObjects: true,
-    //   },
-    // });
-
-    const updateStatus = await prisma.searchObject.update({
+    const checkData = await prisma.user.findFirst({
       where: {
-        orderId: order_id,
+        email: email,
+        searchObjects: {
+          every: {
+            orderId: order_id,
+          },
+        },
       },
-      data: {
-        status: "success pay",
+      include: {
+        searchObjects: true,
       },
     });
 
-    if (updateStatus) {
-      firstMessage(email);
-      serviceMessage();
+    if (checkData) {
+      const updateStatus = await prisma.searchObject.update({
+        where: {
+          orderId: order_id,
+        },
+        data: {
+          status: "success pay",
+        },
+      });
+
+      if (updateStatus) {
+        firstMessage(email);
+        serviceMessage();
+      }
     }
   } catch (error) {
     throw new Error(error);

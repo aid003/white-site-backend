@@ -26,3 +26,6 @@ CREATE TABLE "SearchObject" (
     "updatedAt" DATETIME NOT NULL,
     CONSTRAINT "SearchObject_number_fkey" FOREIGN KEY ("number") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SearchObject_orderId_key" ON "SearchObject"("orderId");
