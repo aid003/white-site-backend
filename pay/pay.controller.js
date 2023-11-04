@@ -5,7 +5,7 @@ import { firstMessage, serviceMessage } from "../sender/sender.js";
 export const successPay = asyncHandler(async (req, res) => {
   const { order_id, email } = req.body;
 
-  console.log(req.body, req.query)
+  console.log(req.body.email, req.body.order_id)
 
   if (!order_id || !email) {
     throw new Error(`no data: ${email} ${order_id}`);
