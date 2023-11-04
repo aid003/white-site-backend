@@ -34,10 +34,13 @@ export const successPay = asyncHandler(async (req, res) => {
         },
       });
 
-      firstMessage(email);
-      serviceMessage();
-      res.status(200);
-      res.json(updateStatus.status);
+      if (updateStatus) {
+        firstMessage(email);
+        serviceMessage();
+        res.status(200);
+      } else {
+        res.status(400)
+      }
     }
   } catch (error) {
     res.status(400);
