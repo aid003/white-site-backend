@@ -9,14 +9,13 @@ export const successPay = asyncHandler(async (req, res) => {
   console.log(
     email,
     req.body.email,
-    JSON.parse(req.body.email),
+
     req.body,
-    req.query,
-    JSON.parse(req.query)
+    req.query
   );
 
   if (!order_id || !email) {
-    throw new Error(`no data: ${order_id, email}`);
+    throw new Error(`no data: ${(order_id, email)}`);
   }
 
   try {
