@@ -35,16 +35,17 @@ async function main() {
   app.use("/api/get-all-email/", getAllEmail);
   app.use("/api/success-payment/", successPay);
 
-  const PORT = 5005;
 
-  app.listen(
-    PORT,
-    console.log(
-      `🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
-    )
-  );
+  // const PORT = 5005;
 
-  https.createServer(options, app).listen(8443);
+  // app.listen(
+  //   PORT,
+  //   console.log(
+  //     `🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
+  //   )
+  // );
+
+  https.createServer(options, app).listen(8443, console.log("https be started"));
 }
 
 main()
