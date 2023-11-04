@@ -1,52 +1,41 @@
 import { prisma } from "../prisma/prisma.js";
 import asyncHandler from "express-async-handler";
 import { firstMessage, serviceMessage } from "../sender/sender.js";
-import { query } from "express";
 
 export const successPay = asyncHandler(async (req, res) => {
   const { order_id, email } = req.body;
-
-  console.log(
-    email,
-    req.body.email,
-
-    req.body,
-    req.query
-  );
 
   if (!order_id || !email) {
     throw new Error(`no data: ${(order_id, email)}`);
   }
 
   try {
-    const checkData = await prisma.user.findFirst({
+    // const checkData = await prisma.user.findFirst({
+    //   where: {
+    //     email: email,
+    //     searchObjects: {
+    //       every: {
+    //         orderId: order_id,
+    //       },
+    //     },
+    //   },
+    //   include: {
+    //     searchObjects: true,
+    //   },
+    // });
+
+    const updateStatus = await prisma.searchObject.update({
       where: {
-        email: email,
-        searchObjects: {
-          every: {
-            orderId: order_id,
-          },
-        },
+        orderId: order_id,
       },
-      include: {
-        searchObjects: true,
+      data: {
+        status: "success pay",
       },
     });
 
-    if (checkData) {
-      const updateStatus = await prisma.searchObject.update({
-        where: {
-          orderId: order_id,
-        },
-        data: {
-          status: "success pay",
-        },
-      });
-
-      if (updateStatus) {
-        firstMessage(email);
-        serviceMessage();
-      }
+    if (updateStatus) {
+      firstMessage(email);
+      serviceMessage();
     }
   } catch (error) {
     throw new Error(error);
