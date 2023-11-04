@@ -3,12 +3,12 @@ import asyncHandler from "express-async-handler";
 import { firstMessage, serviceMessage } from "../sender/sender.js";
 
 export const successPay = asyncHandler(async (req, res) => {
-  const { order_id, email } = JSON.parse(req.body);
+  const { order_id, email } = req.body;
 
-  console.log(JSON.parse(req.body))
+  console.log(order_id, email)
 
   if (!order_id || !email) {
-    throw new Error(`no data: ${req.body}`);
+    throw new Error(`no data: ${order_id, email}`);
   }
 
   try {
