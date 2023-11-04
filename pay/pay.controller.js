@@ -1,11 +1,19 @@
 import { prisma } from "../prisma/prisma.js";
 import asyncHandler from "express-async-handler";
 import { firstMessage, serviceMessage } from "../sender/sender.js";
+import { query } from "express";
 
 export const successPay = asyncHandler(async (req, res) => {
   const { order_id, email } = req.body;
 
-  console.log(order_id, email)
+  console.log(
+    email,
+    req.body.email,
+    JSON.parse(req.body.email),
+    req.body,
+    req.query,
+    JSON.parse(req.query)
+  );
 
   if (!order_id || !email) {
     throw new Error(`no data: ${order_id, email}`);
