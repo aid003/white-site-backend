@@ -4,7 +4,7 @@ import { sendMail } from "../mailer/mailer.js";
 export const firstMessage = (to = `${process.env.EMAIL}`) => {
   const message = `${process.env.MESSAGE_FOR_USER}`;
   const options = {
-    from: `${process.env.EMAIL}`,
+    from: "Poisk Center",
     to: to,
     subject: "Ваш заказ на поиск принят в работу.",
     text: message,

@@ -44,9 +44,6 @@ const HTML_TEMPLATE = (text) => {
             <div class="email-body">
               <p>${text}</p>
             </div>
-            <div class="email-footer">
-              <p>Удачи</p>
-            </div>
           </div>
         </div>
       </body>
